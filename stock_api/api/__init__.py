@@ -16,9 +16,8 @@ parser_paginate_auth = parser_auth.copy()
 parser_paginate_auth.add_argument('page', type=int, location='args')
 parser_paginate_auth.add_argument('page_size', type=int, location='args')
 
-parser_event = parser_paginate_auth.copy()
-parser_event.add_argument('month', type=str, location='args')
-parser_event.add_argument('event_type', type=str, location='args')
+parser_suggestion = parser_paginate_auth.copy()
+parser_suggestion.add_argument('suggestion', type=str, location='args')
 
 
 @api.errorhandler

@@ -19,32 +19,55 @@ from sqlalchemy.orm import relationship
 from stock_api.database import Base, DBObject, DBContext, engine
 
 
-class User(Base, DBContext):
+class User(Base, DBObject):
     __tablename__ = "user"
     __table_args__ = {"schema": "asset"}
     id = Column(Integer, autoincrement=True, primary_key=True)
     email = Column(String)
     password = Column(String)
     name = Column(String)
-    stock_list_id = Column(Integer, ForeignKey("stock.user_list"))
-    stock_list = relationship('Stock_List', foreign_keys=[stock_list_id])
+
+    wallets = relationship('Wallet')
 
 
-class User_Stocks(Base, DBContext):
-    __tablename__ = "stock_list"
+class Wallet(Base, DBObject):
+    __tablename__ = "wallet"
     __table_args__ = {"schema": "asset"}
     id = Column(Integer, autoincrement=True, primary_key=True)
-    user_id = Column(Integer, ForeignKey("asset.user"))
-    amount = Column(Integer)
-    total_price = Column(Integer)
-    purchase_at = Column(Date)
-    value_at_purchase = Column(Integer)
+    user_id = Column(Integer, ForeignKey("asset.user.id"))
+    Name = Column(String)
+    description = Column(String)
+
+    stocks = relationship('Transaction')
 
 
-class Stocks(Base, DBContext):
-    __tablename__ = "stocks"
-    __table_args__ = {"schema": "stock"}
+class Stock(Base, DBObject):
+    __tablename__ = "stock"
+    __table_args__ = {"schema": "asset"}
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String)
     code = Column(String)
-    price = Column(String)
+
+
+class StockHistory(Base, DBObject):
+    __tablename__ = "stock_history"
+    __table_args__ = {"schema": "asset"}
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    stock_id = Column(Integer, ForeignKey("asset.stock.id"))
+    date = Column(Date)
+    open = Column(Integer)
+    close = Column(Integer)
+    min_daily_value = Column(Integer)
+    max_daily_value = Column(Integer)
+
+
+class Transaction(Base, DBObject):
+    __tablename__ = "transaction"
+    __table_args__ = {"schema": "asset"}
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    stock_id = Column(Integer, ForeignKey("asset.stock.id"))
+    wallet_id = Column(Integer, ForeignKey("asset.wallet.id"))
+    transaction_type = Column(String)  # buy / sell
+    purchased_at = Column(Date)
+    purchased_value = Column(Integer)
+    amount = Column(Integer)

@@ -1,0 +1,72 @@
+rotas:
+    - GET /stock/suggestion?symbol={pet}
+        retorna as sugestoes de papel
+
+    - POST /wallet
+        Cria uma carteira
+        required:
+            Name
+            Description
+        
+    - PUT /wallet/{id}
+        Edita uma carteira
+        required:
+            Id
+            Name
+            Description
+    
+    - DELETE /wallet/{id}
+        Deleta uma carteira
+        required:
+            Id
+    
+    - GET /wallet?=
+        Todas as carteiras do usuário
+            Name
+            WalletId
+            UserId
+
+==============================================
+
+    - POST /wallet/<id>/stock
+        adicionar os papeis na carteira
+        required:
+            * wallet_id
+            * symbol
+            * quantia
+            * valor
+            * data (retroactive)
+
+    - PUT /wallet/<id>/stock
+        atualiza os papeis na carteira
+        required:
+            * wallet_id
+            * symbol
+            * quantia
+            * valor
+            * data (retroactive)
+
+    - DELETE /wallet/<id>/stock
+        deleta um papel na carteira        
+        required:
+            * symbol
+            * quantia
+
+    ------------------------------
+    SYMBOL | DATE | AMOUNT | VALUE (E)(X)
+    SYMBOL | DATE | AMOUNT | VALUE (E)(X)
+    SYMBOL | DATE | AMOUNT | VALUE (E)(X)
+    SYMBOL | DATE | AMOUNT | VALUE (E)(X)
+    SYMBOL | DATE | AMOUNT | VALUE (E)(X)
+    SYMBOL | DATE | AMOUNT | VALUE (E)(X)
+           |      |        |       (+)
+    -------------------------------
+    
+    - PUT /wallet
+        editar os papeis na carteira
+        required:
+            * symbol
+            * quantia
+            * valor
+            * data (retroactive)
+
