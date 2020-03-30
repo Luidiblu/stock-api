@@ -21,4 +21,4 @@ DB_NAME = env('DB_NAME')
 ENV = env('ENV')
 PORT = env('PORT', 5432)
 HOST = env('PORT', '127.0.0.1')
-
+AUTH_API_URL = env('AUTH_API_URL')
