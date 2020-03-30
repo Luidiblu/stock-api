@@ -19,6 +19,9 @@ parser_paginate_auth.add_argument('page_size', type=int, location='args')
 parser_suggestion = parser_paginate_auth.copy()
 parser_suggestion.add_argument('suggestion', type=str, location='args')
 
+parser_wallet_name = parser_auth.copy()
+parser_suggestion.add_argument('wallet_name', type=str, location='args')
+
 
 @api.errorhandler
 def default_error_handler(e):
